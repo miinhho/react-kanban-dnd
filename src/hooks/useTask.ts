@@ -1,3 +1,4 @@
+import { produce } from "immer";
 import { use } from "react";
 import { TaskContext } from "../context/TaskContext";
 import type { Task } from "../types";
@@ -31,24 +32,19 @@ export const useTask = () => {
   ) => {
     if (fromColumnId === toColumnId) return;
 
-    setColumns((prev) => {
-      const newColumns = [...prev];
+    setColumns((prev) =>
+      produce(prev, (draft) => {
+        const from = draft.find((c) => c.id === fromColumnId);
+        const to = draft.find((c) => c.id === toColumnId);
+        if (!from || !to) return;
 
-      const fromColumn = newColumns.find((col) => col.id === fromColumnId);
-      const toColumn = newColumns.find((col) => col.id === toColumnId);
+        const idx = from.tasks.findIndex((t) => t.id === taskId);
+        if (idx === -1) return;
 
-      if (fromColumn && toColumn) {
-        const taskIndex = fromColumn.tasks.findIndex(
-          (task) => task.id === taskId
-        );
-        if (taskIndex !== -1) {
-          const [task] = fromColumn.tasks.splice(taskIndex, 1);
-          toColumn.tasks.push(task);
-        }
-      }
-
-      return newColumns;
-    });
+        const [task] = from.tasks.splice(idx, 1);
+        to.tasks.push(task);
+      })
+    );
   };
 
   const onTaskMove = (taskId: string, toColumn: string) => {
@@ -61,20 +57,20 @@ export const useTask = () => {
   const addTask = (task: Task) => {
     if (!selectedColumn) return;
     setColumns((prev) =>
-      prev.map((column) =>
-        column.id === selectedColumn
-          ? { ...column, tasks: [...column.tasks, task] }
-          : column
-      )
+      produce(prev, (draft) => {
+        const col = draft.find((c) => c.id === selectedColumn);
+        if (col) col.tasks.push(task);
+      })
     );
   };
 
   const deleteTask = (taskId: string) => {
     setColumns((prev) =>
-      prev.map((column) => ({
-        ...column,
-        tasks: column.tasks.filter((task) => task.id !== taskId),
-      }))
+      produce(prev, (draft) => {
+        for (const col of draft) {
+          col.tasks = col.tasks.filter((task) => task.id !== taskId);
+        }
+      })
     );
   };
 

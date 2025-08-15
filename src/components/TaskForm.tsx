@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { useColumn } from "../hooks/useColumn";
 import { useTask } from "../hooks/useTask";
 import type { ColumnId } from "../types";
@@ -7,14 +7,12 @@ import styles from './TaskForm.module.css';
 const TaskForm = () => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
-  const taskTitleInputRef = useRef<HTMLInputElement>(null);
   const { addTask, columns } = useTask()
   const { selectedColumn, setSelectedColumn } = useColumn();
 
-  const handleAddTask = () => {
+  const handleAddTask = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
     if (!newTaskTitle.trim()) {
-      alert("제목을 입력해주세요.");
-      taskTitleInputRef.current?.focus();
       return;
     }
 
@@ -28,10 +26,10 @@ const TaskForm = () => {
 
     setNewTaskTitle('');
     setNewTaskDescription('');
-  };
+  }, [addTask, newTaskTitle, newTaskDescription]);
 
   return (
-    <div className={styles.addTaskForm}>
+    <form className={styles.addTaskForm} onSubmit={handleAddTask}>
       <select
         value={selectedColumn}
         onChange={(e) => setSelectedColumn(e.target.value as ColumnId)}
@@ -45,7 +43,6 @@ const TaskForm = () => {
         type="text"
         placeholder="제목"
         value={newTaskTitle}
-        ref={taskTitleInputRef}
         onChange={(e) => setNewTaskTitle(e.target.value)}
         className={styles.taskInput}
       />
@@ -57,12 +54,14 @@ const TaskForm = () => {
         className={styles.taskInput}
       />
       <button
-        onClick={handleAddTask}
+        type="submit"
+        disabled={!newTaskTitle.trim()}
+        aria-disabled={!newTaskTitle.trim()}
         className={styles.addButton}
       >
-        ➕ Add Task
+        ➕ 작업 추가
       </button>
-    </div>
+    </form>
   )
 }
 
