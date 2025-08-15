@@ -5,7 +5,9 @@ export interface Task {
 }
 
 export interface Column {
-  id: string;
+  id: ColumnId;
   title: string;
   tasks: Task[];
 }
+
+export type ColumnId = "todo" | "inProgress" | "done";

@@ -1,28 +1,46 @@
-import type { Column } from "../types";
+import type { Column, ColumnId } from "../types";
 
 export const initialData: Column[] = [
   {
-    id: 'todo',
-    title: 'To Do',
+    id: "todo",
+    title: "To Do",
     tasks: [
-      { id: '1', title: 'Plan project', description: 'Create initial project structure' },
-      { id: '2', title: 'Design UI', description: 'Create wireframes and mockups' },
-    ]
+      {
+        id: "1",
+        title: "Plan project",
+        description: "Create initial project structure",
+      },
+      {
+        id: "2",
+        title: "Design UI",
+        description: "Create wireframes and mockups",
+      },
+    ],
   },
   {
-    id: 'inProgress',
-    title: 'In Progress',
+    id: "inProgress",
+    title: "In Progress",
     tasks: [
-      { id: '3', title: 'Implement features', description: 'Start coding the main features' },
-    ]
+      {
+        id: "3",
+        title: "Implement features",
+        description: "Start coding the main features",
+      },
+    ],
   },
   {
-    id: 'done',
-    title: 'Done',
+    id: "done",
+    title: "Done",
     tasks: [
-      { id: '4', title: 'Setup project', description: 'Initialize React and dependencies' },
-    ]
-  }
+      {
+        id: "4",
+        title: "Setup project",
+        description: "Initialize React and dependencies",
+      },
+    ],
+  },
 ];
 
-export const ItemType = 'TASK';
+export const ItemType = "TASK";
+
+export const initialColumn: ColumnId = "todo";
