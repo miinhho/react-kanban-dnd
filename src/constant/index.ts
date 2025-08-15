@@ -3,39 +3,39 @@ import type { Column, ColumnId } from "../types";
 export const initialData: Column[] = [
   {
     id: "todo",
-    title: "To Do",
+    title: "할 일",
     tasks: [
       {
         id: "1",
-        title: "Plan project",
-        description: "Create initial project structure",
+        title: "프로젝트 계획",
+        description: "초기 프로젝트 구조 생성",
       },
       {
         id: "2",
-        title: "Design UI",
-        description: "Create wireframes and mockups",
+        title: "UI 디자인",
+        description: "와이어프레임 및 목업 제작",
       },
     ],
   },
   {
     id: "inProgress",
-    title: "In Progress",
+    title: "진행 중",
     tasks: [
       {
         id: "3",
-        title: "Implement features",
-        description: "Start coding the main features",
+        title: "기능 구현",
+        description: "주요 기능 코딩 시작",
       },
     ],
   },
   {
     id: "done",
-    title: "Done",
+    title: "완료",
     tasks: [
       {
         id: "4",
-        title: "Setup project",
-        description: "Initialize React and dependencies",
+        title: "프로젝트 설정",
+        description: "React 및 의존성 초기화",
       },
     ],
   },

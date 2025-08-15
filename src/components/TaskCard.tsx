@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { ItemType } from '../data';
+import { ItemType } from '../constant';
 import type { Task } from '../types';
 import styles from './TaskCard.module.css';
 
@@ -36,7 +36,7 @@ const taskCardDraggingStyle = css({
   zIndex: 1000,
 })
 
-export default function TaskCard({ task, onDelete }: TaskCardProps) {
+const TaskCard = ({ task, onDelete }: TaskCardProps) => {
   const [{ isDragging }, drag, preview] = useDrag({
     type: ItemType,
     item: { id: task.id, task },
@@ -62,7 +62,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
         <button
           onClick={() => onDelete(task.id)}
           className={styles.deleteButton}
-          aria-label="Delete task"
+          aria-label="작업 삭제 버튼"
         >
           ❌
         </button>
@@ -78,3 +78,5 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
     </div>
   );
 }
+
+export default TaskCard;

@@ -15,7 +15,7 @@ const previewStyle = (x: number, y: number) => css({
   transition: 'transform 0.05s linear',
 })
 
-export default function CustomDragLayer() {
+const CustomDragLayer = () => {
   const { isDragging, item, currentOffset } = useDragLayer((monitor) => ({
     isDragging: monitor.isDragging(),
     item: monitor.getItem(),
@@ -44,3 +44,5 @@ export default function CustomDragLayer() {
     </div>
   );
 }
+
+export default CustomDragLayer;

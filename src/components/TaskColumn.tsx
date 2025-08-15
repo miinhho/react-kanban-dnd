@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { css } from '@emotion/react';
 import { useDrop } from 'react-dnd';
-import { ItemType } from '../data';
+import { ItemType } from '../constant';
 import type { Column, Task } from '../types';
 import TaskCard from './TaskCard';
 import styles from './TaskColumn.module.css';
@@ -31,7 +31,7 @@ const columnOverStyle = css({
   border: '2px dashed #aeaeaeff !important',
 })
 
-export default function Column({ column, onTaskMove, onTaskDelete }: ColumnProps) {
+const TaskColumn = ({ column, onTaskMove, onTaskDelete }: ColumnProps) => {
   const [{ isOver }, drop] = useDrop({
     accept: ItemType,
     drop: (item: TaskItem) => {
@@ -61,10 +61,12 @@ export default function Column({ column, onTaskMove, onTaskDelete }: ColumnProps
         ))}
         {column.tasks.length === 0 && (
           <div className="empty-placeholder">
-            Drop tasks here
+            여기로 작업을 드래그해서 추가하세요.
           </div>
         )}
       </div>
     </div>
   );
 }
+
+export default TaskColumn;

@@ -20,6 +20,6 @@ const TaskContainer = () => {
   )
 }
 
-export default TaskContainer
+export default TaskContainer;
 
 TaskContainer.DragLayer = CustomDragLayer;

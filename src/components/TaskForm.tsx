@@ -4,7 +4,7 @@ import { useTask } from "../hooks/useTask";
 import type { ColumnId } from "../types";
 import styles from './TaskForm.module.css';
 
-export default function TaskForm() {
+const TaskForm = () => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
   const taskTitleInputRef = useRef<HTMLInputElement>(null);
@@ -65,3 +65,5 @@ export default function TaskForm() {
     </div>
   )
 }
+
+export default TaskForm;
