@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useColumn } from "../hooks/useColumn";
 import { useTask } from "../hooks/useTask";
+import type { ColumnId } from "../types";
 import styles from './TaskForm.module.css';
 
 export default function TaskForm() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
+  const taskTitleInputRef = useRef<HTMLInputElement>(null);
   const { addTask, columns } = useTask()
   const { selectedColumn, setSelectedColumn } = useColumn();
 
   const handleAddTask = () => {
-    if (!newTaskTitle.trim()) return;
+    if (!newTaskTitle.trim()) {
+      alert("제목을 입력해주세요.");
+      taskTitleInputRef.current?.focus();
+      return;
+    }
 
     const newTask = {
       id: Date.now().toString(),
@@ -28,7 +34,7 @@ export default function TaskForm() {
     <div className={styles.addTaskForm}>
       <select
         value={selectedColumn}
-        onChange={(e) => setSelectedColumn(e.target.value)}
+        onChange={(e) => setSelectedColumn(e.target.value as ColumnId)}
         className={styles.columnSelect}
       >
         {columns.map(column => (
@@ -37,14 +43,15 @@ export default function TaskForm() {
       </select>
       <input
         type="text"
-        placeholder="Task title..."
+        placeholder="제목"
         value={newTaskTitle}
+        ref={taskTitleInputRef}
         onChange={(e) => setNewTaskTitle(e.target.value)}
         className={styles.taskInput}
       />
       <input
         type="text"
-        placeholder="Task description..."
+        placeholder="설명"
         value={newTaskDescription}
         onChange={(e) => setNewTaskDescription(e.target.value)}
         className={styles.taskInput}
