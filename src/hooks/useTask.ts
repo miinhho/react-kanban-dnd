@@ -47,10 +47,10 @@ export const useTask = () => {
     );
   };
 
-  const onTaskMove = (taskId: string, toColumn: string) => {
+  const onTaskMove = (taskId: string, toColumnId: string) => {
     const actualFromColumn = findTaskColumn(taskId);
     if (actualFromColumn) {
-      moveTask(taskId, actualFromColumn, toColumn);
+      moveTask(taskId, actualFromColumn, toColumnId);
     }
   };
 
