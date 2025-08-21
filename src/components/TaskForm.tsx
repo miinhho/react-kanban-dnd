@@ -1,32 +1,29 @@
-import { useCallback, useState } from "react";
-import { useColumn } from "../hooks/useColumn";
-import { useTask } from "../hooks/useTask";
-import type { ColumnId } from "../types";
-import styles from './TaskForm.module.css';
+import { useState } from 'react'
+import { useColumn } from '../hooks/useColumn'
+import { useTask } from '../hooks/useTask'
+import type { ColumnId } from '../types'
+import styles from './TaskForm.module.css'
 
 const TaskForm = () => {
-  const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [newTaskDescription, setNewTaskDescription] = useState('');
+  const [newTaskTitle, setNewTaskTitle] = useState('')
+  const [newTaskDescription, setNewTaskDescription] = useState('')
   const { addTask, columns } = useTask()
-  const { selectedColumn, setSelectedColumn } = useColumn();
+  const { selectedColumn, setSelectedColumn } = useColumn()
 
-  const handleAddTask = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTaskTitle.trim()) {
-      return;
-    }
+  const handleAddTask = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newTaskTitle.trim()) return
 
     const newTask = {
       id: Date.now().toString(),
       title: newTaskTitle,
-      description: newTaskDescription
-    };
+      description: newTaskDescription,
+    }
 
-    addTask(newTask);
-
-    setNewTaskTitle('');
-    setNewTaskDescription('');
-  }, [addTask, newTaskTitle, newTaskDescription]);
+    addTask(newTask)
+    setNewTaskTitle('')
+    setNewTaskDescription('')
+  }
 
   return (
     <form className={styles.addTaskForm} onSubmit={handleAddTask}>
@@ -35,8 +32,10 @@ const TaskForm = () => {
         onChange={(e) => setSelectedColumn(e.target.value as ColumnId)}
         className={styles.columnSelect}
       >
-        {columns.map(column => (
-          <option key={column.id} value={column.id}>{column.title}</option>
+        {columns.map((column) => (
+          <option key={column.id} value={column.id}>
+            {column.title}
+          </option>
         ))}
       </select>
       <input
@@ -65,4 +64,4 @@ const TaskForm = () => {
   )
 }
 
-export default TaskForm;
+export default TaskForm

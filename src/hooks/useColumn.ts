@@ -1,10 +1,10 @@
-import { use } from "react";
-import { ColumnContext } from "../context/ColumnContext";
+import { use } from 'react'
+import { ColumnContext } from '../context/ColumnContext'
 
 export const useColumn = () => {
-  const ctx = use(ColumnContext);
+  const ctx = use(ColumnContext)
   if (!ctx) {
-    throw new Error("useColumn must be used within a ColumnContext");
+    throw new Error('useColumn must be used within a ColumnContext')
   }
-  return ctx;
-};
+  return ctx
+}

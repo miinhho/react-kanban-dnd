@@ -1,7 +1,7 @@
-import styles from './App.module.css';
-import TaskContainer from './components/TaskContainer';
-import TaskForm from './components/TaskForm';
-import { AppContext } from './context';
+import styles from './App.module.css'
+import TaskContainer from './components/TaskContainer'
+import TaskForm from './components/TaskForm'
+import { AppContext } from './context'
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
         <TaskContainer.DragLayer />
       </div>
     </AppContext>
-  );
+  )
 }
 
-export default App;
+export default App

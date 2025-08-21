@@ -1,16 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { css } from '@emotion/react';
-import { useEffect } from 'react';
-import { useDrag } from 'react-dnd';
-import { getEmptyImage } from 'react-dnd-html5-backend';
-import { ItemType } from '../constant';
-import type { Task } from '../types';
-import styles from './TaskCard.module.css';
-
-interface TaskCardProps {
-  task: Task;
-  onDelete: (taskId: string) => void;
-}
+import { css } from '@emotion/react'
+import { useEffect } from 'react'
+import { useDrag } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
+import { ItemType } from '../constant'
+import type { Task } from '../types'
+import styles from './TaskCard.module.css'
 
 const taskCardStyle = css({
   background: 'white',
@@ -21,13 +15,13 @@ const taskCardStyle = css({
   cursor: 'grab',
   position: 'relative',
   marginBottom: '15px',
-  ":hover": {
+  ':hover': {
     transform: 'translateY(-2px)',
     boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
   },
-  ":active": {
+  ':active': {
     cursor: 'grabbing',
-  }
+  },
 })
 
 const taskCardDraggingStyle = css({
@@ -36,6 +30,11 @@ const taskCardDraggingStyle = css({
   zIndex: 1000,
 })
 
+interface TaskCardProps {
+  task: Task
+  onDelete: (taskId: string) => void
+}
+
 const TaskCard = ({ task, onDelete }: TaskCardProps) => {
   const [{ isDragging }, drag, preview] = useDrag({
     type: ItemType,
@@ -43,20 +42,14 @@ const TaskCard = ({ task, onDelete }: TaskCardProps) => {
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  });
+  })
 
   useEffect(() => {
-    preview(getEmptyImage(), { captureDraggingState: true });
-  }, [preview]);
+    preview(getEmptyImage(), { captureDraggingState: true })
+  }, [preview])
 
   return (
-    <div
-      ref={drag as any}
-      css={[
-        taskCardStyle,
-        isDragging && taskCardDraggingStyle
-      ]}
-    >
+    <div ref={drag as never} css={[taskCardStyle, isDragging && taskCardDraggingStyle]}>
       <div className={styles.taskHeader}>
         <h3 className={styles.taskHeader}>{task.title}</h3>
         <button
@@ -67,16 +60,10 @@ const TaskCard = ({ task, onDelete }: TaskCardProps) => {
           ❌
         </button>
       </div>
-      {task.description && (
-        <p className={styles.taskDescription}>
-          {task.description}
-        </p>
-      )}
-      <div className={styles.taskHandle}>
-        ⋮⋮
-      </div>
+      {task.description && <p className={styles.taskDescription}>{task.description}</p>}
+      <div className={styles.taskHandle}>⋮⋮</div>
     </div>
-  );
+  )
 }
 
-export default TaskCard;
+export default TaskCard
