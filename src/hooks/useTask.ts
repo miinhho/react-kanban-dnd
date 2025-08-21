@@ -32,7 +32,7 @@ export const useTask = () => {
         if (!from || !to) return
 
         const idx = findIndex(from.tasks, { id: taskId })
-        if (!idx) return
+        if (idx === -1) return
 
         const [task] = from.tasks.splice(idx, 1)
         to.tasks.push(task)
