@@ -5,19 +5,20 @@ import type { Column, Task } from '../types'
 import TaskCard from './TaskCard'
 import styles from './TaskColumn.module.css'
 
-const columnStyle = css({
-  background: 'rgba(255, 255, 255, 0.1)',
-  backdropFilter: 'blur(10px)',
-  padding: '20px',
-  borderRadius: '15px',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  minHeight: '400px',
-})
-
-const columnOverStyle = css({
-  background: 'rgba(116, 116, 116, 0.1) !important',
-  border: '2px dashed #aeaeaeff !important',
-})
+const Styles = {
+  column: css({
+    background: 'rgba(255, 255, 255, 0.1)',
+    backdropFilter: 'blur(10px)',
+    padding: '20px',
+    borderRadius: '15px',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    minHeight: '400px',
+  }),
+  columnOver: css({
+    background: 'rgba(116, 116, 116, 0.1) !important',
+    border: '2px dashed #aeaeaeff !important',
+  }),
+}
 
 interface ColumnProps {
   column: Column
@@ -25,16 +26,11 @@ interface ColumnProps {
   onTaskDelete: (taskId: string) => void
 }
 
-interface TaskItem {
-  id: string
-  task: Task
-}
-
 const TaskColumn = ({ column, onTaskMove, onTaskDelete }: ColumnProps) => {
   const [{ isOver }, drop] = useDrop({
     accept: ItemType,
-    drop: (item: TaskItem) => {
-      onTaskMove(item.task.id, column.id)
+    drop: (item: Task) => {
+      onTaskMove(item.id, column.id)
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -42,7 +38,7 @@ const TaskColumn = ({ column, onTaskMove, onTaskDelete }: ColumnProps) => {
   })
 
   return (
-    <div ref={drop as never} css={[columnStyle, isOver && columnOverStyle]}>
+    <div ref={drop as never} css={[Styles.column, isOver && Styles.columnOver]}>
       <h2 className={styles.columnTitle}>{column.title}</h2>
       <div className={styles.tasksContainer}>
         {column.tasks.map((task) => (

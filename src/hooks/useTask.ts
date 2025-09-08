@@ -1,12 +1,12 @@
 import { find, findIndex, reject, some } from 'es-toolkit/compat'
 import { produce } from 'immer'
-import { use } from 'react'
+import { useContext } from 'react'
 import { TaskContext } from '../context/TaskContext'
 import { type Column, type Task } from '../types'
 import { useColumn } from './useColumn'
 
 const useTaskContext = () => {
-  const ctx = use(TaskContext)
+  const ctx = useContext(TaskContext)
   if (!ctx) {
     throw new Error('useTask must be used within a TaskContext')
   }

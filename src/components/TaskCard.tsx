@@ -6,29 +6,30 @@ import { ItemType } from '../constant'
 import type { Task } from '../types'
 import styles from './TaskCard.module.css'
 
-const taskCardStyle = css({
-  background: 'white',
-  padding: '16px',
-  borderRadius: '10px',
-  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-  transition: 'all 0.2s ease',
-  cursor: 'grab',
-  position: 'relative',
-  marginBottom: '15px',
-  ':hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
-  },
-  ':active': {
-    cursor: 'grabbing',
-  },
-})
-
-const taskCardDraggingStyle = css({
-  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3) !important',
-  opacity: 0.5,
-  zIndex: 1000,
-})
+const Styles = {
+  taskCard: css({
+    background: 'white',
+    padding: '16px',
+    borderRadius: '10px',
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+    transition: 'all 0.2s ease',
+    cursor: 'grab',
+    position: 'relative',
+    marginBottom: '15px',
+    ':hover': {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+    },
+    ':active': {
+      cursor: 'grabbing',
+    },
+  }),
+  taskCardDragging: css({
+    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3) !important',
+    opacity: 0.5,
+    zIndex: 1000,
+  }),
+}
 
 interface TaskCardProps {
   task: Task
@@ -49,7 +50,7 @@ const TaskCard = ({ task, onDelete }: TaskCardProps) => {
   }, [preview])
 
   return (
-    <div ref={drag as never} css={[taskCardStyle, isDragging && taskCardDraggingStyle]}>
+    <div ref={drag as never} css={[Styles.taskCard, isDragging && Styles.taskCardDragging]}>
       <div className={styles.taskHeader}>
         <h3 className={styles.taskHeader}>{task.title}</h3>
         <button
